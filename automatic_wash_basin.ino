@@ -9,6 +9,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(WEIGHT.getValue());
-  delay(1000);
+  Serial.println(analogRead(A0));
+  delay(500);
 }

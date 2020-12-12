@@ -1,4 +1,7 @@
 #include "HX711.h"
+#include "pin.h"
+#include <Wire.h> // Include Wire.h to control I2C
+#include <LiquidCrystal_I2C.h> //Download & include the code library can be downloaded below
 
 class class_sensorWeight{
   private:
@@ -34,7 +37,40 @@ class class_sensorWeight{
   }
 
   long getValue(){
-    return this->loadcell.get_units(10);
+    return this->loadcell.get_units();
   }
   
 } WEIGHT;
+
+class key_string(){
+   private:
+   LiquidCrystal_I2C lcd(0x27,2,1,0,4,5,6,7,3, POSITIVE);
+   const int KEYA = pinKEYA;
+   const int KEYB = pinKEYB;
+   const int KEYC = pinKEYC;
+   const int KEYD = pinKEYD;
+   cosnt int KEYS = pinKEYS;
+   byte getData(){
+    byte ret = 0;
+    if(digitalRead(KEYA)) ret + 1;
+    if(digitalRead(KEYB)) ret + 2;
+    if(digitalRead(KEYC)) ret + 4;
+    if(digitalRead(KEYD)) ret + 8;
+    return ret;
+   }
+   public:
+   void init(bool slcd){
+    pinMode(KEYA, INPUT);
+    pinMode(KEYB, INPUT);
+    pinMode(KEYC, INPUT);
+    pinMode(KEYD, INPUT);
+    if(slcd){
+      lcd.begin (16,2);
+    }
+   }
+
+   String getString(bool isNumberOnly){
+    String foo;
+    return foo;
+   }
+}KEY_STRING;
